@@ -17,7 +17,6 @@ const mongoURI = process.env.MONGO_URI;
 //connecting server
 const app = express();
 const DB = mongoose.connect(mongoURI)
-console.log(DB);
 
 app.use(cookieParser());
 app.use(express.json());

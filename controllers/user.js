@@ -12,7 +12,7 @@ export const signUp = async (req,res) => {
     const dupe = await userModel.findOne({email:email})
 
     if(dupe){
-        return res.status(400).json({message:'Email already exists'})
+        return res.status(409).json({message:'Email already exists'})
     }
 
     const hashedPassword = Authenicator.hashPassword(password);
@@ -24,7 +24,7 @@ export const signUp = async (req,res) => {
         //pass user id to cookie for session after signIn or signUp
         res.cookie('token',token)
 
-        res.json({
+        res.status(201).json({
             id:userData._id,
             username:userData.username})
 
@@ -62,5 +62,10 @@ export const signIn = async (req,res) => {
     }catch (err){
         return res.status(500).json({message:err.message})
     }
+}
+
+export const signOut = (req,res) => {
+    res.clearCookie('token')
+    res.status(200).json({message:'Signed out successfully'})
 }
 
