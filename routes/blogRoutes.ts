@@ -2,7 +2,6 @@ import {Router} from 'express';
 import {createBlog, deleteBlog, getBlog, getBlogbyId, updateBlog} from "../controllers/blog.js";
 import {requiredAuth} from "../utils/authenicator.js";
 
-
 const blogRouter = Router();
 
 blogRouter.get('/',requiredAuth, getBlog);

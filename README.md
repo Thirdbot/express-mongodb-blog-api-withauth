@@ -136,7 +136,7 @@ All blog routes require authentication (token cookie).
 - `routes/` Express routes
 - `models/` Mongoose schemas
 - `utils/` helpers (authentication, hashing, middleware)
-- `index.js` app entry point
+- `index.ts` app entry point
 
 ---
 

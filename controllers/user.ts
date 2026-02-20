@@ -1,9 +1,10 @@
 import {Authenicator} from "../utils/authenicator.js";
 import userModel from "../models/user.js";
 import jwt from 'jsonwebtoken';
+import type {Request, Response} from "express";
 
 
-export const signUp = async (req,res) => {
+export const signUp = async (req:Request,res:Response) => {
     const {username,email,password} = req.body
 
     if (!username || !password || !email){
@@ -19,7 +20,7 @@ export const signUp = async (req,res) => {
 
     try{
         const userData = await userModel.create({username:username,email:email,password:hashedPassword})
-        const token = jwt.sign({id:userData._id},process.env.JWT_SECRET,{expiresIn:'1d'})
+        const token = jwt.sign({id:userData._id},process.env.JWT_SECRET || 'replace_me_with_a_long_random_secret',{expiresIn:'1d'})
 
         //pass user id to cookie for session after signIn or signUp
         res.cookie('token',token)
@@ -28,13 +29,13 @@ export const signUp = async (req,res) => {
             id:userData._id,
             username:userData.username})
 
-    }catch (err){
+    }catch (err:any){
         return res.status(500).json({message:err.message})
     }
 
 }
 
-export const signIn = async (req,res) => {
+export const signIn = async (req:Request,res:Response) => {
     const {email,password} = req.body
 
     if (!email){
@@ -55,16 +56,16 @@ export const signIn = async (req,res) => {
             return res.status(401).json({message: 'Invalid username or email or password'})
         }
 
-        const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn: '1d'})
+        const token = jwt.sign({id: user._id}, process.env.JWT_SECRET || 'replace_me_with_a_long_random_secret', {expiresIn: '1d'})
         res.cookie('token', token)
         res.json({message: 'Signed in successfully'})
 
-    }catch (err){
+    }catch (err:any){
         return res.status(500).json({message:err.message})
     }
 }
 
-export const signOut = (req,res) => {
+export const signOut = (req:Request,res:Response) => {
     res.clearCookie('token')
     res.status(200).json({message:'Signed out successfully'})
 }

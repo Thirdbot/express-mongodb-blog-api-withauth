@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const blogSchema = mongoose.Schema({
+const blogSchema = new mongoose.Schema({
   title: {type:String,default:'Untitled'},
   content: {type:String,required:true},
   userId:{type:mongoose.Types.ObjectId,ref:'user'}
