@@ -142,10 +142,6 @@ All blog routes require authentication (token cookie).
 
 ## Notes / Recommendations
 If you plan to extend this project, good next steps:
-- Add `POST /logout` (clear cookie)
-- Add `GET /me` (current user)
-- Add authorization checks (only allow editing/deleting your own blog)
-- Add validation (e.g., request body validation)
 - Add Docker Compose for MongoDB
 
 ---
